@@ -55,17 +55,17 @@ class Planets(db.Model):
     favorites = db.relationship('Favorites', backref='planets', lazy=True)
    
     def __repr__(self):
-        return '<Characters %r>' % self.id
+        return '<Planets %r>' % self.id
 
     def serialize(self):
         return {
             "id": self.id,
             "name": self.name,
-            "diametro": self.gender,
-            "gravedad": self.eyes_color,
-            "poblacion": self.height,
-            "rotacion": self.hair_color,
-            # do not serialize the password, its a security breach
+            "diametro": self.diametro,
+            "gravedad": self.gravedad,
+            "poblacion": self.poblacion,
+            "rotacion": self.rotacion,
+           
         } 
     
 class Favorites(db.Model):
