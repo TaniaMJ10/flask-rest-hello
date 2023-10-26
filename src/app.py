@@ -9,6 +9,7 @@ from flask_cors import CORS
 from utils import APIException, generate_sitemap
 from admin import setup_admin
 from models import db, User, Characters, Planets, Favorites
+import json
 #from models import Person
 
 app = Flask(__name__)
@@ -105,11 +106,33 @@ def get_one_favorites(favorites_id):
     return serialized_favorites, 200
 
 
+@app.route('/characters', methods=['POST'])
+def create_one_characters():
+    body = json.loads(request.data)
+    new_characters = Characters(
+        name =body["name"],
+        gender =body["gender"],
+        eyes_color = body["eyes_color"],
+        height = body["height"],
+        hair_color =body["hair_color"],  
+    )
+    db.session.add(new_characters)
+    db.session.commit()
+    return jsonify({"msg": "characters created succesfull"}), 200
 
-
-
-
-
+@app.route('/planets', methods=['POST'])
+def create_one_planets():
+    body = json.loads(request.data)
+    new_planets = Planets(
+        name =body["name"],
+        diametro = body["diametro"],
+        gravedad = body["gravedad"],
+        poblacion =body["poblacion"],
+        rotacion =body["rotacion"],
+    )
+    db.session.add(new_planets)
+    db.session.commit()
+    return jsonify({"msg": "planets created succesfull"}), 200
 
 
 
